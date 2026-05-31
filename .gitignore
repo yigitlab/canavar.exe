@@ -1,0 +1,21 @@
+# Build outputs
+**/bin/
+**/obj/
+**/publish_output/
+*.tmp.zip
+
+# IDEs and editors
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Temporary files
+*.jpg
+*.log
+
+# Large binary payloads that can be regenerated or downloaded
+**/payload.zip

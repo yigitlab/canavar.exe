@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>canavar.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- PcToplama_extracted yalnızca referans amaçlı; derlemeye dahil etme -->
+    <Compile Remove="PcToplama_extracted\**\*.cs" />
+    <EmbeddedResource Remove="PcToplama_extracted\**\*" />
+    <None Remove="PcToplama_extracted\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <!-- Ürün görselleri: Images\Products klasöründeki tüm dosyaları output'a kopyala -->
+    <None Update="Images\Products\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="canavar.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="payload.zip" />
+  </ItemGroup>
+
+</Project>
