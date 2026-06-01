@@ -266,7 +266,7 @@ public class CompareWizardControl : UserControl
         btnClearSelection.FlatAppearance.BorderSize = 0;
         btnClearSelection.Click += OnClearSelectionClicked;
 
-        flowLayoutPanel2.Controls.AddRange(lblSel1, lblVs, lblSel2, btnCompare, btnClearSelection);
+        flowLayoutPanel2.Controls.AddRange(new Control[] { lblSel1, lblVs, lblSel2, btnCompare, btnClearSelection });
         selectionStrip.Controls.Add(flowLayoutPanel2);
         compareArea = new Panel
         {
@@ -351,7 +351,7 @@ public class CompareWizardControl : UserControl
 
     private void LoadCategories()
     {
-        cbCategory.Items.AddRange("CPU", "GPU", "RAM", "Anakart", "SSD", "Bilgisayar Kasası", "Telefon", "Tablet", "Laptop", "Televizyon", "Monitör");
+        cbCategory.Items.AddRange(new object[] { "CPU", "GPU", "RAM", "Anakart", "SSD", "Bilgisayar Kasası", "Telefon", "Tablet", "Laptop", "Televizyon", "Monitör" });
         cbCategory.SelectedIndex = 0;
     }
 
