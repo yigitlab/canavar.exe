@@ -5,91 +5,91 @@
 Bu projeyi; donanım bileşenlerini (CPU, GPU, RAM vb.) ve mobil/ev teknolojilerini 
 (Telefon, Tablet, TV, Laptop vb.) yan yana karşılaştıran, aynı zamanda kullanıcıların 
 kendi bilgisayarlarını sıfırdan toplayıp taksit planlaması yapabildiği ve hazır 
-sistemleri inceleyebildiği profesyonel ve modern bir masaüstü platformu olarak tasarladım.
+sistemleri inceleyebildiği profesyonel ve modern bir masaüstü platformu olarak tasarlanmıştır.
 
-Aşağıda, bu projeyi geliştirirken kurduğum yazılım mimarisini, tercih ettiğim 
+Aşağıda, bu projeyi geliştirirken kurduğumuz yazılım mimarisini, tercih ettiğimiz 
 nesne yönelimli programlama (OOP) yapılarını, kalıtımları, veritabanı tasarımlarını 
-ve neden bu yöntemleri seçtiğimi detaylı bir şekilde açıkladım.
+ve neden bu yöntemleri seçtiğimi detaylı bir şekilde açıklanmıştır.
 
 --------------------------------------------------------------------------------
 1. NESNE YÖNELİMLİ MODEL HİYERARŞİSİ VE KALITIM (OOP)
 --------------------------------------------------------------------------------
 Uygulamada listelenen tüm donanım ve teknoloji ürünlerini yönetmek için temiz bir 
-nesne yönelimli kalıtım zinciri kurdum.
+nesne yönelimli kalıtım zinciri kuruldu.
 
 *   Base Class: Product (Soyut/Temel Ürün Sınıfı)
     -   Tüm ürünlerin ortak olarak sahip olduğu Id, Name, Price, Brand, Image, 
         Rating (Epey Puanı) ve Specifications gibi nitelikleri tek bir merkezde 
-        toplamak için bu taban sınıfı tasarladım.
-    -   Böylece kod tekrarını engelledim ve polimorfizm (çok biçimlilik) sayesinde 
+        toplamak için bu taban sınıfı tasarladık.
+    -   Böylece kod tekrarını engelledik ve polimorfizm (çok biçimlilik) sayesinde 
         tüm ürün alt kategorilerini tek bir generic liste (`List<Product>`) içinde 
-        yönetebildim.
+        yönetebildik.
 
 *   Türetilmiş Sınıflar (Derived Classes):
     -   Ortak taban sınıftan (`Product`) miras alan ve her bir ürün grubunun kendine 
-        özgü teknik detaylarını barındıran alt sınıflar oluşturdum:
-        -   CPU (İşlemci): SocketType, Cores, Threads, BaseClock niteliklerini ekledim.
-        -   GPU (Ekran Kartı): VRAM, Chipset, Interface niteliklerini ekledim.
-        -   RAM (Bellek): Capacity, MemoryType, Speed, Latency niteliklerini ekledim.
-        -   Motherboard (Anakart): SocketType, Chipset, FormFactor, MemorySlots ekledim.
-        -   Storage (Depolama): Capacity, DriveType (SSD/HDD), ReadSpeed, WriteSpeed ekledim.
-        -   PC_Case (Kasa): FormFactor, IncludePSU, Color ekledim.
-        -   PSU (Güç Kaynağı): Wattage, EfficiencyRating (80+ Gold vb.), Modular ekledim.
-        -   Monitor (Monitör): ScreenSize, Resolution, RefreshRate, PanelType ekledim.
-        -   Phone (Telefon): ScreenSize, BatteryCapacity, StorageCapacity, RAM ekledim.
-        -   Tablet (Tablet): ScreenSize, BatteryCapacity, StorageCapacity, RAM ekledim.
-        -   Laptop (Dizüstü): CPU, GPU, RAM, Storage, ScreenSize ekledim.
-        -   Television (Televizyon): ScreenSize, Resolution, SmartTV, PanelType ekledim.
+        özgü teknik detaylarını barındıran alt sınıflar oluşturduk:
+        -   CPU (İşlemci): SocketType, Cores, Threads, BaseClock niteliklerini ekledik.
+        -   GPU (Ekran Kartı): VRAM, Chipset, Interface niteliklerini ekledik.
+        -   RAM (Bellek): Capacity, MemoryType, Speed, Latency niteliklerini ekledik.
+        -   Motherboard (Anakart): SocketType, Chipset, FormFactor, MemorySlots ekledik.
+        -   Storage (Depolama): Capacity, DriveType (SSD/HDD), ReadSpeed, WriteSpeed ekledik.
+        -   PC_Case (Kasa): FormFactor, IncludePSU, Color ekledik.
+        -   PSU (Güç Kaynağı): Wattage, EfficiencyRating (80+ Gold vb.), Modular ekledik.
+        -   Monitor (Monitör): ScreenSize, Resolution, RefreshRate, PanelType ekledik.
+        -   Phone (Telefon): ScreenSize, BatteryCapacity, StorageCapacity, RAM ekledik.
+        -   Tablet (Tablet): ScreenSize, BatteryCapacity, StorageCapacity, RAM ekledik.
+        -   Laptop (Dizüstü): CPU, GPU, RAM, Storage, ScreenSize ekledik.
+        -   Television (Televizyon): ScreenSize, Resolution, SmartTV, PanelType ekledil.
 
-    *Neden Kalıtım Kullandım?*
+    *Neden Kalıtım Kullandık?*
     -   Farklı ürünlerin tamamen farklı teknik özellik tabloları vardı. Bunları tek 
         bir sınıfta birleştirmek kirli bir tasarıma yol açardı. Kalıtım kullanarak, 
         her ürünün kendi kimliğini korumasını sağlarken, fiyat listesi, sepet ve 
         karşılaştırma alanlarında hepsine "tek bir Ürünmüş gibi" davranabilme 
-        esnekliğini kazandım.
+        esnekliğini kazandık.
 
 --------------------------------------------------------------------------------
 2. VERİTABANI TASARIMI VE ORM ALTYAPISI (Entity Framework Core & SQLite)
 --------------------------------------------------------------------------------
 Uygulamanın veri depolama katmanında yüksek performans ve yerel çalışma özgürlüğü 
-sağlamak için SQLite kullandım. Veritabanı yönetimini ise Entity Framework Core (EF Core) 
-ile yürüttüm.
+sağlamak için SQLite kullandık. Veritabanı yönetimini ise Entity Framework Core (EF Core) 
+ile yürüttük.
 
 *   AppDbContext (Veritabanı Bağlamı):
     -   SQL sorgularını elle yazmak yerine modern bir yaklaşımla nesne ilişkisel 
-        eşleme (ORM) kütüphanesi olan EF Core kullandım. SQLite bağlantı adresini 
-        dinamik olarak kullanıcı bilgisayarındaki merkezi AppData dizinine yönlendirdim.
+        eşleme (ORM) kütüphanesi olan EF Core kullandık. SQLite bağlantı adresini 
+        dinamik olarak kullanıcı bilgisayarındaki merkezi AppData dizinine yönlendirdik.
 
 *   TPH (Table-Per-Hierarchy) Deseni:
     -   Kalıtım hiyerarşimizdeki 12 farklı sınıfı veritabanında saklamak için TPH 
-        tasarımını seçtim. Bu tasarım sayesinde tüm ürün türleri veritabanında 
+        tasarımını seçtik. Bu tasarım sayesinde tüm ürün türleri veritabanında 
         tek bir "Products" tablosunda saklanır. EF Core, hangi satırın hangi 
         sınıfa (örneğin CPU mu, GPU mu) ait olduğunu ayırt etmek için otomatik olarak 
         "ProductType" adında bir ayırt edici (Discriminator) sütunu yönetir.
         
-    *Neden TPH Tercih Ettim?*
-    -   Eğer her ürün için ayrı tablo açsaydım (Table-Per-Type), bilgisayar toplarken 
+    *Neden TPH Tercih Ettik?*
+    -   Eğer her ürün için ayrı tablo açsaydık (Table-Per-Type), bilgisayar toplarken 
         veya genel ürün araması yaparken 12 farklı tabloyu JOIN ile birleştirmek 
-        zorunda kalacaktım ve bu da veritabanı performansını felç edecekti. TPH 
-        sayesinde tüm verileri tek bir indeks üzerinden son derece hızlı sorgulayabiliyorum.
+        zorunda kalacaktık ve bu da veritabanı performansını felç edecekti. TPH 
+        sayesinde tüm verileri tek bir indeks üzerinden son derece hızlı sorgulayabiliyoruz.
 
 --------------------------------------------------------------------------------
 3. ARAYÜZ MİMARİSİ VE KULLANICI KONTROLLERİ (Windows Forms & UserControls)
 --------------------------------------------------------------------------------
 Uygulamayı tek bir devasa form yerine modüler, yeniden kullanılabilir ve yönetimi kolay 
-kullanıcı kontrolleri (`UserControl`) şeklinde parçalara böldüm.
+kullanıcı kontrolleri (`UserControl`) şeklinde parçalara böldük.
 
 *   ThemeManager (Tema Yönetim Sistemi):
     -   Kullanıcının gözünü yormayacak, dinamik olarak değişebilen premium bir 
-        renk paleti kurguladım. Dark ve Light mod desteğini `ThemeChanged` event'i 
+        renk paleti kurguladık. Dark ve Light mod desteğini `ThemeChanged` event'i 
         üzerinden tüm alt kontrollere dinamik olarak uygulayabilen merkezi bir 
-        statik sınıf tasarladım.
+        statik sınıf tasarladık.
 
 *   Form1 (Ana Taşıyıcı Pencere):
     -   Uygulamanın dış iskeletini oluşturur. Özel piksel tabanlı çerçevesiz modern 
         başlık çubuğunu (`_titleBar`), ayarlar butonunu (`_btnSettings`) ve 
         teknoloji haberlerini canlı asenkron çeken haber bandını (`_pnlNewsTicker`) 
-        burada kurguladım.
+        burada kurguladık.
 
 *   CompareWizardControl (Ürün Karşılaştırma Sihirbazı):
     -   Bu modülün amacı, kullanıcının seçtiği kategorideki ürünleri dinamik olarak 
@@ -98,35 +98,35 @@ kullanıcı kontrolleri (`UserControl`) şeklinde parçalara böldüm.
     -   **Z-Order Overlap Çözümü:** Alt kısımdaki seçim şeridinin, ürün kartlarının 
         üzerine binip tıklamayı engellememesi için WinForms yerleşim motorunda 
         `cardArea` ve `compareArea` kontrollerini `BringToFront()` fonksiyonu ile 
-        Z-order hiyerarşisinde en öne getirdim. Böylece dinamik daralma kusursuz çalıştı.
+        Z-order hiyerarşisinde en öne getirdik. Böylece dinamik daralma kusursuz çalıştı.
     -   Kullanıcı deneyimini güçlendirmek amacıyla anında filtreleri sıfırlayan 
         "Filtreleri Kaldır" ve seçimleri temizleyen "Seçenekleri Kaldır" butonlarını 
-        kurguladım.
+        kurguladık.
 
 *   PcBuilderControl (Bilgisayar Toplama Sihirbazı):
     -   Kullanıcıların uyumlu donanımları sırayla seçerek kendi hayallerindeki sistemi 
         kurmalarını sağlayan bölüm. Seçilen her ürünün fiyatını dinamik toplayıp, 
         anlaşmalı bankaların vade ve faiz oranlarına göre taksit tablosunu 
-        kullanıcıya canlı sunacak şekilde matematiksel formüller ekledim.
+        kullanıcıya canlı sunacak şekilde matematiksel formüller ekledik.
 
 *   HazirSistemlerControl ve HazirSistemKarti (Hazır Sistemler Modülü):
     -   SalihProje kaynaklarındaki hazır sistem verilerini ve mantığını uygulamaya 
-        tam uyumlu şekilde adapte ettim. 24 hazır sistemin teknik kartlarını çizen, 
+        tam uyumlu şekilde adapte ettik. 24 hazır sistemin teknik kartlarını çizen, 
         fiyat segmentine göre asenkron yedek kasa görseli atayan (`fallback image`) 
-        ve bunları sepete ekleyip taksit tablosunu çıkaran bağımsız bir modül kurguladım.
+        ve bunları sepete ekleyip taksit tablosunu çıkaran bağımsız bir modül kurguladık.
 
 --------------------------------------------------------------------------------
 4. BAĞIMSIZ TAŞINABİLİR DAĞITIM VE İKON TASARIMI (Single-File & Embedded)
 --------------------------------------------------------------------------------
 Uygulamayı sıradan bir C# çıktısı olmaktan çıkarıp profesyonel bir masaüstü ürününe 
-dönüştürmek için dağıtım mimarisini baştan aşağı değiştirdim.
+dönüştürmek için dağıtım mimarisini baştan aşağı değiştirdik.
 
 *   payload.zip ve Gömülü Kaynak Altyapısı:
     -   Kullanıcıların `canavarcom.exe` dosyasının yanında veritabanı veya resim 
-        klasörleri taşıma zorunluluğunu ortadan kaldırmak istedim.
+        klasörleri taşıma zorunluluğunu ortadan kaldırmak istedik.
     -   Bunun için veritabanı (`products.db`) ve tüm görselleri (`Images/Products`) 
-        tek bir `payload.zip` içinde sıkıştırıp projeye gömdüm (`EmbeddedResource`).
-    -   `Program.cs` içerisine yerleştirdiğim akıllı başlatıcı sayesinde, uygulama 
+        tek bir `payload.zip` içinde sıkıştırıp projeye gömdük (`EmbeddedResource`).
+    -   `Program.cs` içerisine yerleştirdiğimiz akıllı başlatıcı sayesinde, uygulama 
         çalıştığı an arka planda kendi içindeki bu zip dosyasını tespit eder ve 
         kullanıcıya hiç hissettirmeden saniyeler içinde bilgisayardaki merkezi 
         `%LOCALAPPDATA%\canavar.com` klasörüne ayıklar.
@@ -136,16 +136,16 @@ dönüştürmek için dağıtım mimarisini baştan aşağı değiştirdim.
 *   canavar.ico İkon Üretimi:
     -   Masaüstümdeki `canavar.jpg` görselini C# üzerinde piksel tabanlı işleyerek 
         16x16, 32x32, 48x48, 64x64, 128x128 ve 256x256 boyutlarını tek bünyede toplayan 
-        yüksek çözünürlüklü bir simge (`canavar.ico`) dosyası ürettim. 
-    -   Bu simgeyi uygulamanın hem derleme ikonu hem de form simgesi olarak atadım.
+        yüksek çözünürlüklü bir simge (`canavar.ico`) dosyası ürettik. 
+    -   Bu simgeyi uygulamanın hem derleme ikonu hem de form simgesi olarak atadık.
 
 *   Masaüstü Derlemesi:
     -   Tüm bu altyapıyı `.NET 10.0` tabanlı, tüm framework kütüphanelerini kendi 
         içinde barındıran (Self-Contained) ve tek bir dosyada çalışan (Single-File) 
-        `canavarcom.exe` olarak derleyip doğrudan masaüstüme çıkardım.
+        `canavarcom.exe` olarak derleyip doğrudan masaüstüme çıkardık.
 
 ================================================================================
 Sonuç olarak; canavar.com projesini sıfır derleme hatasıyla, nesne yönelimli 
 programlama disiplinlerine ve veri tabanı optimizasyonlarına sadık kalarak, her 
-bilgisayarda tek tıkla çalışabilecek profesyonellik seviyesine ulaştırdım.
+bilgisayarda tek tıkla çalışabilecek profesyonellik seviyesine ulaştırdık.
 ================================================================================
