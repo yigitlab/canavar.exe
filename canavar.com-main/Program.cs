@@ -27,7 +27,26 @@ static class Program
         string targetDir = DataService.GetAppDataDir();
         string dbPath = Path.Combine(targetDir, "products.db");
 
-        // Eğer veritabanı veya resimler yoksa gömülü zip dosyasından çıkartalım
+        // 1. Eğer AppData'da veritabanı yoksa ama yerel çalışma dizininde (veya exe yanında) products.db varsa,
+        // hocanın projeyi Visual Studio'dan doğrudan çalıştırdığı anlar için bunu AppData'ya kopyalayalım.
+        if (!File.Exists(dbPath))
+        {
+            string localDb = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "products.db");
+            if (File.Exists(localDb))
+            {
+                try { File.Copy(localDb, dbPath, overwrite: true); } catch { }
+            }
+            else
+            {
+                string curDb = Path.Combine(Directory.GetCurrentDirectory(), "products.db");
+                if (File.Exists(curDb))
+                {
+                    try { File.Copy(curDb, dbPath, overwrite: true); } catch { }
+                }
+            }
+        }
+
+        // 2. Eğer hala veritabanı veya resimler yoksa gömülü zip dosyasından çıkartalım
         if (!File.Exists(dbPath) || !Directory.Exists(Path.Combine(targetDir, "Images")))
         {
             try
