@@ -130,7 +130,7 @@ public class CompareWizardControl : UserControl
 
     private Panel filterPanel = null;
 
-    private Button btnApplyFilter = null;
+
 
     private Dictionary<string, object> activeFilters = new Dictionary<string, object>();
 
