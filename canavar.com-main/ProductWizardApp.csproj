@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="Exists('payload.zip')">
     <EmbeddedResource Include="payload.zip" />
   </ItemGroup>
 
