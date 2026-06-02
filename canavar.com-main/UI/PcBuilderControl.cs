@@ -85,14 +85,14 @@ public class PcBuilderControl : UserControl
         this.panel1.Width = 220;
         this.panel1.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
         this.panel1.Padding = new System.Windows.Forms.Padding(5);
-        this.SetupButton(this.btnMonitor, "Monitör", 7, new System.EventHandler(btnMonitor_Click));
-        this.SetupButton(this.btnPsu, "Güç Kaynağı", 6, new System.EventHandler(btnPsu_Click));
-        this.SetupButton(this.btnKasa, "Kasa", 5, new System.EventHandler(btnKasa_Click));
-        this.SetupButton(this.btnSsd, "SSD", 4, new System.EventHandler(btnSsd_Click));
-        this.SetupButton(this.btnRam, "RAM", 3, new System.EventHandler(btnRam_Click));
-        this.SetupButton(this.btnEkranKarti, "Ekran Kartı", 2, new System.EventHandler(btnEkranKarti_Click));
-        this.SetupButton(this.btnIslemci, "İşlemci", 1, new System.EventHandler(btnIslemci_Click));
         this.SetupButton(this.btnAnakart, "Anakart", 0, new System.EventHandler(btnAnakart_Click));
+        this.SetupButton(this.btnIslemci, "İşlemci", 1, new System.EventHandler(btnIslemci_Click));
+        this.SetupButton(this.btnEkranKarti, "Ekran Kartı", 2, new System.EventHandler(btnEkranKarti_Click));
+        this.SetupButton(this.btnRam, "RAM", 3, new System.EventHandler(btnRam_Click));
+        this.SetupButton(this.btnSsd, "SSD", 4, new System.EventHandler(btnSsd_Click));
+        this.SetupButton(this.btnKasa, "Kasa", 5, new System.EventHandler(btnKasa_Click));
+        this.SetupButton(this.btnPsu, "Güç Kaynağı", 6, new System.EventHandler(btnPsu_Click));
+        this.SetupButton(this.btnMonitor, "Monitör", 7, new System.EventHandler(btnMonitor_Click));
         panel.Dock = System.Windows.Forms.DockStyle.Right;
         panel.Width = 360;
         panel.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
@@ -207,6 +207,7 @@ public class PcBuilderControl : UserControl
             if (mevcutPSUWatt > 0 && mevcutPSUWatt < gPU.MinimumGucKaynagi)
             {
                 MessageBox.Show($"Uyarı: Güç kaynağınız ({mevcutPSUWatt}W), bu kart için önerilen ({gPU.MinimumGucKaynagi}W) değerinden düşük!");
+                return;
             }
             gerekenGPUWatt = gPU.MinimumGucKaynagi;
         }
@@ -215,12 +216,14 @@ public class PcBuilderControl : UserControl
             if (gerekenGPUWatt > 0 && pSU.Wattage < gerekenGPUWatt)
             {
                 MessageBox.Show("Uyarı: Bu güç kaynağı sepetteki ekran kartı için yetersiz kalabilir!");
+                return;
             }
             mevcutPSUWatt = pSU.Wattage;
         }
         if (urun is RAM rAM && !string.IsNullOrEmpty(seciliRamTipi) && rAM.RamTipi != seciliRamTipi)
         {
             MessageBox.Show($"Uyarı: RAM tipi ({rAM.RamTipi}) anakart desteğiyle ({seciliRamTipi}) uyumsuz olabilir!");
+            return;
         }
         lstSepet.Items.Add(urun.Name + " - " + urun.Price.ToString("N0") + " TL");
         sepetUrunleri.Add(urun);

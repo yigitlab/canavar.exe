@@ -46,40 +46,7 @@ static class Program
             }
         }
 
-        // 2. Eğer hala veritabanı veya resimler yoksa gömülü zip dosyasından çıkartalım
-        if (!File.Exists(dbPath) || !Directory.Exists(Path.Combine(targetDir, "Images")))
-        {
-            try
-            {
-                var assembly = Assembly.GetExecutingAssembly();
-                string? resourceName = assembly.GetManifestResourceNames()
-                    .FirstOrDefault(n => n.EndsWith("payload.zip"));
-
-                if (resourceName != null)
-                {
-                    using (Stream? stream = assembly.GetManifestResourceStream(resourceName))
-                    {
-                        if (stream != null)
-                        {
-                            string tempZipPath = Path.Combine(targetDir, "payload.tmp.zip");
-                            using (FileStream fs = new FileStream(tempZipPath, FileMode.Create))
-                            {
-                                stream.CopyTo(fs);
-                            }
-
-                            // Zip dosyasını hedef klasöre ayıkla
-                            ZipFile.ExtractToDirectory(tempZipPath, targetDir, overwriteFiles: true);
-
-                            // Geçici dosyayı sil
-                            File.Delete(tempZipPath);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Uygulama kaynakları yüklenirken hata oluştu: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        // 2. payload.zip mantığı (GitHub'dan doğrudan çalıştırma senaryosu için) iptal edilmiştir.
+        // Resimler ve products.db zaten repository'de bulunacaktır.
     }
 }

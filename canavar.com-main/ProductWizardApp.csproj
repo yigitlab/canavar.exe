@@ -32,8 +32,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
   </ItemGroup>
 
-  <ItemGroup Condition="Exists('payload.zip')">
-    <EmbeddedResource Include="payload.zip" />
+  <ItemGroup>
+    <None Update="products.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
